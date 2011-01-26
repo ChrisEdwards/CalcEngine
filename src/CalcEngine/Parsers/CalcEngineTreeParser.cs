@@ -1,4 +1,3 @@
-using System;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
 using CalcEngine.Expressions;
@@ -10,12 +9,16 @@ namespace CalcEngine.Parsers
 {
 	internal class CalcEngineTreeParser
 	{
+		private readonly FunctionSet _functionSet = FunctionSet.GetDefaultFunctionSet();
+
+
 		internal AstNode Parse( ITree source )
 		{
 			return null;
 		}
 
-		internal AstNode ParseExpression (ITree source )
+
+		internal AstNode ParseExpression( ITree source )
 		{
 			switch ( source.Type )
 			{
@@ -27,6 +30,7 @@ namespace CalcEngine.Parsers
 				case TokenTypes.OP_SUBTRACT:
 				case TokenTypes.OP_MULTIPLY:
 				case TokenTypes.OP_DIVIDE:
+				case TokenTypes.FUNCTION:
 					return ParseFunctionNode( source );
 
 				default:
@@ -35,16 +39,16 @@ namespace CalcEngine.Parsers
 		}
 
 
-		private AstNode ParseLiteralNode(ITree source)
+		private AstNode ParseLiteralNode( ITree source )
 		{
-			return new AstLiteralNode(double.Parse(source.Text));
+			return new AstLiteralNode( double.Parse( source.Text ) );
 		}
 
 
-		private AstNode ParseFunctionNode(ITree source)
+		private AstNode ParseFunctionNode( ITree source )
 		{
 			PostfixMathCommand command;
-			switch( source.Type )
+			switch ( source.Type )
 			{
 				case TokenTypes.OP_ADD:
 					command = new Add();
@@ -62,15 +66,19 @@ namespace CalcEngine.Parsers
 					command = new Divide();
 					break;
 
+				case TokenTypes.FUNCTION:
+					command = _functionSet[source.Text];
+					break;
+
 				default:
 					throw new NoViableAltException();
 			}
 
-			var node = new AstFunctionNode(command, command.Symbol );
+			var node = new AstFunctionNode( command, command.Symbol );
 
 			for ( int i = 0; i < source.ChildCount; i++ )
 			{
-				var sourceChild = source.GetChild( i );
+				ITree sourceChild = source.GetChild( i );
 				node.AddChild( ParseExpression( sourceChild ) );
 			}
 

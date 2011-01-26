@@ -34,6 +34,19 @@ namespace CalcEngine.Tests.Assertions
 		}
 
 
+		public static void ShouldBe_Function< TExpectedFunction >( this AstNode node,
+		                                                           Func< NodeExpectationFactory, NodeExpectation > expectationLambda )
+				where TExpectedFunction : PostfixMathCommand
+		{
+			node.ShouldBe< AstFunctionNode >();
+			node.As< AstFunctionNode >().PFMC.ShouldBe< TExpectedFunction >();
+
+			AstNode child = node.GetChild( 0 );
+			NodeExpectation expectation = expectationLambda( new NodeExpectationFactory() );
+			expectation.AssertIsSatisfiedBy( child );
+		}
+
+
 		public static void ShouldBe_BinaryFunction< TExpectedFunction >( this AstNode node, double? expectedLeftValue, double? expectedRightValue )
 				where TExpectedFunction : PostfixMathCommand
 		{

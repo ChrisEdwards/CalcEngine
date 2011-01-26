@@ -15,6 +15,7 @@ namespace CalcEngine.Expressions.Functions
 	/// </summary>
 	public abstract class PostfixMathCommand
 	{
+
 		/// <summary>
 		/// This value, if used as the numberOfParameters, denotes that the function
 		/// supports a variable number of parameters.
