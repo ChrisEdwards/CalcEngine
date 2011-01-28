@@ -253,7 +253,7 @@ criteria
 
 		
 functionCall
-	:	ID '(' ( expression ( ',' expression )* )? ')' -> ^( FUNCTION ^( NAME ID ) ^( PARAMETERS expression* ) )
+	:	x=ID '(' ( expression ( ',' expression )* )? ')' -> ^( FUNCTION[$x] expression* )
 	;
 
 

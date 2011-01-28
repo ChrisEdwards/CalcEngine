@@ -44,9 +44,9 @@ namespace CalcEngine.Expressions.Functions
 
 			AstNode condition = node.GetChild( 0 );
 			condition.Accept( pv, data );
-			
+
 			CheckStack( stack );
-			
+
 			double? condVal = stack.Pop();
 			if ( condVal.HasValue && ( condVal > 0.0 ) )
 			{

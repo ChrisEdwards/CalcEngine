@@ -1,9 +1,10 @@
 grammar AntlrCalcEngine;
 
 options {
-	language = 'CSharp2';
+	//language = 'CSharp2';
 	// We're going to output an AST.
 	output = AST;
+	ASTLabelType = CommonTree;
 }
 
 tokens {
@@ -252,7 +253,7 @@ criteria
 
 		
 functionCall
-	:	ID '(' ( expression ( ',' expression )* )? ')' -> ^( FUNCTION ^( NAME ID ) ^( PARAMETERS expression* ) )
+	:	x=ID '(' ( expression ( ',' expression )* )? ')' -> ^( FUNCTION[$x] expression* )
 	;
 
 

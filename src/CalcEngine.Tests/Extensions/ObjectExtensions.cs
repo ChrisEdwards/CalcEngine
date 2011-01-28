@@ -8,7 +8,7 @@ namespace CalcEngine.Tests.Extensions
 		/// <typeparam name="T">The type to cast the object as</typeparam>
 		/// <param name="obj">The object to cast.</param>
 		/// <returns></returns>
-		public static T As<T>(this object obj)
+		public static T As< T >( this object obj )
 		{
 			return (T)obj;
 		}

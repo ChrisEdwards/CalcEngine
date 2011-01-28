@@ -30,7 +30,7 @@ namespace CalcEngine.Tests.Assertions
 		public static void ShouldBe_Function< TExpectedFunction >( this AstNode node ) where TExpectedFunction : PostfixMathCommand
 		{
 			node.ShouldBe< AstFunctionNode >();
-			node.As< AstFunctionNode >().PFMC.ShouldBe< TExpectedFunction >();
+			node.As< AstFunctionNode >().Pfmc.ShouldBe< TExpectedFunction >();
 		}
 
 
@@ -39,7 +39,7 @@ namespace CalcEngine.Tests.Assertions
 				where TExpectedFunction : PostfixMathCommand
 		{
 			node.ShouldBe< AstFunctionNode >();
-			node.As< AstFunctionNode >().PFMC.ShouldBe< TExpectedFunction >();
+			node.As< AstFunctionNode >().Pfmc.ShouldBe< TExpectedFunction >();
 
 			AstNode child = node.GetChild( 0 );
 			NodeExpectation expectation = expectationLambda( new NodeExpectationFactory() );

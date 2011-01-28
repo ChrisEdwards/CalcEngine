@@ -27,11 +27,13 @@ namespace CalcEngine.Expressions.Functions
 				return null;
 
 			double? greatestValue = valuesToAggregate[0];
-			for ( int i = 0; i < valuesToAggregate.Length; i++ )
+
+			foreach ( double? t in valuesToAggregate )
 			{
-				if ( Comparator.DoGreaterThan( valuesToAggregate[i], greatestValue ) )
-					greatestValue = valuesToAggregate[i];
+				if ( Comparator.DoGreaterThan( t, greatestValue ) )
+					greatestValue = t;
 			}
+
 			return greatestValue;
 		}
 

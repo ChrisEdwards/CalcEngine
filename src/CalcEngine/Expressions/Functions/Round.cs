@@ -23,9 +23,9 @@ namespace CalcEngine.Expressions.Functions
 		/// </summary>
 		/// <param name="d1">The number to round.</param>
 		/// <param name="numberOfDecimals">The number of decimal places to round to.</param>
-		internal virtual double DoRound(double? d1, double? numberOfDecimals)
+		internal virtual double DoRound( double? d1, double? numberOfDecimals )
 		{
-			return Math.Round(d1.Value, (int)numberOfDecimals.Value);
+			return Math.Round( d1.Value, (int)numberOfDecimals.Value );
 		}
 
 
@@ -35,12 +35,12 @@ namespace CalcEngine.Expressions.Functions
 		/// <param name="param1">The number to round.</param>
 		/// <param name="numberOfDecimals">The number of decimal places to round to.</param>
 		/// <exception cref="ApplicationException">Invalid parameter type</exception>
-		internal virtual object DoRound(object param1, object numberOfDecimals)
+		internal virtual object DoRound( object param1, object numberOfDecimals )
 		{
-			if (!(param1 is double) || !(numberOfDecimals is double))
-				throw new ApplicationException("Invalid parameter type");
+			if ( !( param1 is double ) || !( numberOfDecimals is double ) )
+				throw new ApplicationException( "Invalid parameter type" );
 
-			return DoRound((double)param1, Convert.ToInt32(numberOfDecimals));
+			return DoRound( (double)param1, Convert.ToInt32( numberOfDecimals ) );
 		}
 
 
@@ -49,11 +49,11 @@ namespace CalcEngine.Expressions.Functions
 		/// </summary>
 		/// <param name="stack">The stack to operate upon.</param>
 		/// <exception cref="ApplicationException"><c>ApplicationException</c>.</exception>
-		internal override void Run(Stack<double?> stack)
+		internal override void Run( Stack< double? > stack )
 		{
 			double? decimals;
-			CheckStack(stack);
-			switch (CurNumberOfParameters)
+			CheckStack( stack );
+			switch ( CurNumberOfParameters )
 			{
 				case 1:
 					decimals = 0.0;
@@ -64,14 +64,14 @@ namespace CalcEngine.Expressions.Functions
 					break;
 
 				default:
-					throw new ApplicationException("Invalid number of parameters for Round() function. Expected 1 or 2, but was " +
-													CurNumberOfParameters);
+					throw new ApplicationException( "Invalid number of parameters for Round() function. Expected 1 or 2, but was " +
+					                                CurNumberOfParameters );
 			}
 			double? param = stack.Pop();
-			if (!param.HasValue || !decimals.HasValue)
-				stack.Push(null);
+			if ( !param.HasValue || !decimals.HasValue )
+				stack.Push( null );
 			else
-				stack.Push(DoRound(param, decimals));
+				stack.Push( DoRound( param, decimals ) );
 		}
 
 

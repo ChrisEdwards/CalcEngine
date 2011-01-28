@@ -24,18 +24,18 @@ namespace CalcEngine.Expressions.Functions
 		/// <param name="param1">The param1.</param>
 		/// <returns></returns>
 		/// <exception cref="ApplicationException"><c>ApplicationException</c>.</exception>
-		internal virtual double? DoNot(double? param1)
+		internal virtual double? DoNot( double? param1 )
 		{
-			if (!param1.HasValue)
+			if ( !param1.HasValue )
 				return null;
 
-			if (param1 == 1.0)
+			if ( param1 == 1.0 )
 				return 0.0;
 
-			if (param1 != 0.0)
-				throw new ApplicationException("Invalid parameter type: Expected null, 1 or 0, but was " + param1);
+			if ( param1 == 0.0 )
+				return 1.0;
 
-			return 1.0;
+			throw new ApplicationException( "Invalid parameter type: Expected null, 1 or 0, but was " + param1 );
 		}
 
 
@@ -43,17 +43,17 @@ namespace CalcEngine.Expressions.Functions
 		/// Performs the logical Not operation.
 		/// </summary>
 		/// <param name="stack"></param>
-		internal override void Run(Stack<double?> stack)
+		internal override void Run( Stack< double? > stack )
 		{
-			double? result;
-
 			double? param1 = stack.Pop();
-			if (!param1.HasValue)
-				result = null;
+
+			double? result;
+			if ( param1.HasValue )
+				result = DoNot( param1 );
 			else
-				result = DoNot(param1);
-			
-			stack.Push(result);
+				result = null;
+
+			stack.Push( result );
 		}
 
 

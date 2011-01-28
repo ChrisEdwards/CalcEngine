@@ -1,0 +1,26 @@
+account.averageBalance =
+	sum( account.balance ) /
+	this.account[ balance[this.a>100].average > 0 ].count;
+
+institution.averageBalance =
+	average( this.accounts.averageBalance );
+
+
+class CycleAccount : Account where this.CycleId > 1
+{
+	property CycleAccountId primarykey;
+	
+	property CycleId;
+	property AccountId;
+	
+	property IsActive calculated;
+	property IsNew calculated;
+	property IsSwitched calculated;
+	property Branch calculated;
+	
+	relationship Account = Account where AccountId == this.AccountId;
+	relationship Cycle = Cycle where CycleId == this.CycleId;
+	relationship DailyTransactionSummariesForCycle = DailyTransactionSummary where AccountId == this.AccountId 
+	                                                  and Date >= this.Cycle.StartDate
+	                                                  and Date <= this.Cycle.EndDate;
+}

@@ -31,6 +31,7 @@ namespace CalcEngine.Expressions.Functions
 		/// Performs the Aggregate Calculation.
 		/// </summary>
 		/// <param name="stack"></param>
+		/// <exception cref="System.InvalidOperationException">The <see cref="T:System.Collections.Generic.Stack`1" /> is empty.</exception>
 		internal override void Run( Stack< double? > stack )
 		{
 			var numberOfValuesToAggregate = (int)stack.Pop().Value;

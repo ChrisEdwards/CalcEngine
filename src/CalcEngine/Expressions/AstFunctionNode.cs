@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CalcEngine.Expressions.Functions;
 
 
@@ -27,10 +28,26 @@ namespace CalcEngine.Expressions
 		/// <param name="function">The PostFixMathCommand object used to process this
 		/// function's parameters and supply the result.</param>
 		/// <param name="functionName">The name of the function, or operator symbol.</param>
-		internal AstFunctionNode(PostfixMathCommand function, string functionName)
+		internal AstFunctionNode( PostfixMathCommand function, string functionName )
 		{
 			_pfmc = function;
 			_name = functionName;
+		}
+
+
+		/// <summary>
+		/// Constructs a Function node given the function name and the math command.
+		/// </summary>
+		/// <param name="function">The PostFixMathCommand object used to process this
+		/// function's parameters and supply the result.</param>
+		/// <param name="functionName">The name of the function, or operator symbol.</param>
+		internal AstFunctionNode( PostfixMathCommand function, IEnumerable< AstNode > children )
+		{
+			_pfmc = function;
+			_name = function.Symbol;
+
+			foreach ( AstNode child in children )
+				AddChild( child );
 		}
 
 
@@ -45,11 +62,11 @@ namespace CalcEngine.Expressions
 		/// </summary>
 		/// <param name="visitor">The object visiting this node.</param>
 		/// <param name="sessionData">Misc data to use during this visit.</param>
-		internal override object Accept(IAstNodeVisitor visitor, object sessionData)
+		internal override object Accept( IAstNodeVisitor visitor, object sessionData )
 		{
-			if (visitor is IAstFunctionNodeVisitor)
-				return ((IAstFunctionNodeVisitor)visitor).Visit(this, sessionData);
-			return visitor.Visit(this, sessionData);
+			if ( visitor is IAstFunctionNodeVisitor )
+				return ( (IAstFunctionNodeVisitor)visitor ).Visit( this, sessionData );
+			return visitor.Visit( this, sessionData );
 		}
 
 
@@ -61,12 +78,12 @@ namespace CalcEngine.Expressions
 		/// <see langword="true" /> if the specified <see cref="T:System.Object" /> is equal to the
 		/// current <see cref="T:System.Object" />; otherwise, <see langword="false" />.
 		/// </returns>
-		public override bool Equals(object obj)
+		public override bool Equals( object obj )
 		{
-			if ((obj == null) || (base.GetType() != obj.GetType()))
+			if ( ( obj == null ) || ( GetType() != obj.GetType() ) )
 				return false;
 			var node = (AstFunctionNode)obj;
-			return (Name.ToLower().Equals(node.Name.ToLower()) && base.ChildrenEqual(this, node));
+			return ( Name.ToLower().Equals( node.Name.ToLower() ) && ChildrenEqual( this, node ) );
 		}
 
 
@@ -80,10 +97,10 @@ namespace CalcEngine.Expressions
 		public override int GetHashCode()
 		{
 			int result = Name.GetHashCode();
-			if (base.Children != null)
+			if ( Children != null )
 			{
-				for (int i = 0; i < base.Children.Count; i++)
-					result ^= GetChild(i).GetHashCode();
+				for ( int i = 0; i < Children.Count; i++ )
+					result ^= GetChild( i ).GetHashCode();
 			}
 			return result;
 		}
@@ -95,12 +112,12 @@ namespace CalcEngine.Expressions
 		public override string ToString()
 		{
 			string outString = "( Function \"" + Name + "\" ";
-			if (base.Children != null)
+			if ( Children != null )
 			{
-				for (int i = 0; i < base.Children.Count; i++)
-					outString = outString + GetChild(i);
+				for ( int i = 0; i < Children.Count; i++ )
+					outString = outString + GetChild( i );
 			}
-			return (outString + ") ");
+			return ( outString + ") " );
 		}
 
 
@@ -115,7 +132,7 @@ namespace CalcEngine.Expressions
 		/// <summary>
 		/// Returns the math command class associated with this node.
 		/// </summary>
-		internal virtual PostfixMathCommand PFMC
+		internal virtual PostfixMathCommand Pfmc
 		{
 			get { return _pfmc; }
 		}
@@ -125,12 +142,12 @@ namespace CalcEngine.Expressions
 			get
 			{
 				int nodeType = 0;
-				string cs0 = PFMC.Symbol;
-				if (cs0 == null)
+				string cs0 = Pfmc.Symbol;
+				if ( cs0 == null )
 					return nodeType;
-				if (!(cs0 == "=="))
+				if ( cs0 != "==" )
 				{
-					if (cs0 != "and")
+					if ( cs0 != "and" )
 						return nodeType;
 				}
 				else

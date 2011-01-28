@@ -1,4 +1,3 @@
-using CalcEngine.Expressions;
 using NUnit.Framework;
 
 
@@ -11,9 +10,9 @@ namespace CalcEngine.Tests.Assertions
 		/// </summary>
 		/// <typeparam name="TExpectedType">The type this object should be</typeparam>
 		/// <param name="testSubject">The object being tested.</param>
-		public static void ShouldBe<TExpectedType>(this object testSubject)
+		public static void ShouldBe< TExpectedType >( this object testSubject )
 		{
-			Assert.IsInstanceOf<TExpectedType>(testSubject);
+			Assert.IsInstanceOf< TExpectedType >( testSubject );
 		}
 	}
 }

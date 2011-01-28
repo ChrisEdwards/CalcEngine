@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
 using CalcEngine.Expressions;
@@ -18,6 +19,12 @@ namespace CalcEngine.Parsers
 		}
 
 
+		/// <summary>
+		/// Parses the expression.
+		/// </summary>
+		/// <param name="source">The source.</param>
+		/// <returns></returns>
+		/// <exception cref="NoViableAltException"><c>NoViableAltException</c>.</exception>
 		internal AstNode ParseExpression( ITree source )
 		{
 			switch ( source.Type )
@@ -30,6 +37,8 @@ namespace CalcEngine.Parsers
 				case TokenTypes.OP_SUBTRACT:
 				case TokenTypes.OP_MULTIPLY:
 				case TokenTypes.OP_DIVIDE:
+					return ParseOperatorNode( source );
+
 				case TokenTypes.FUNCTION:
 					return ParseFunctionNode( source );
 
@@ -45,7 +54,42 @@ namespace CalcEngine.Parsers
 		}
 
 
+		/// <summary>
+		/// Parses the operator node.
+		/// </summary>
+		/// <param name="source">The source.</param>
+		/// <returns></returns>
+		private AstNode ParseOperatorNode( ITree source )
+		{
+			return new AstFunctionNode(
+					GetCommandForOperator( source ),
+					ParseChildExpressions( source )
+					);
+		}
+
+
+		/// <summary>
+		/// Parses the function node.
+		/// </summary>
+		/// <param name="source">The source.</param>
+		/// <returns></returns>
+		/// <exception cref="NoViableAltException"><c>NoViableAltException</c>.</exception>
 		private AstNode ParseFunctionNode( ITree source )
+		{
+			return new AstFunctionNode(
+					GetFunctionByName( source.Text ),
+					ParseChildExpressions( source )
+					);
+		}
+
+
+		/// <summary>
+		/// Gets the command for operator.
+		/// </summary>
+		/// <param name="source">The source.</param>
+		/// <returns></returns>
+		/// <exception cref="NoViableAltException"><c>NoViableAltException</c>.</exception>
+		private static PostfixMathCommand GetCommandForOperator( ITree source )
 		{
 			PostfixMathCommand command;
 			switch ( source.Type )
@@ -66,23 +110,27 @@ namespace CalcEngine.Parsers
 					command = new Divide();
 					break;
 
-				case TokenTypes.FUNCTION:
-					command = _functionSet[source.Text];
-					break;
-
 				default:
 					throw new NoViableAltException();
 			}
+			return command;
+		}
 
-			var node = new AstFunctionNode( command, command.Symbol );
+
+		private PostfixMathCommand GetFunctionByName( string functionName )
+		{
+			return _functionSet[functionName];
+		}
+
+
+		private IEnumerable< AstNode > ParseChildExpressions( ITree source )
+		{
+			IList< AstNode > children = new List< AstNode >();
 
 			for ( int i = 0; i < source.ChildCount; i++ )
-			{
-				ITree sourceChild = source.GetChild( i );
-				node.AddChild( ParseExpression( sourceChild ) );
-			}
+				children.Add( ParseExpression( source.GetChild( i ) ) );
 
-			return node;
+			return children;
 		}
 	}
 }

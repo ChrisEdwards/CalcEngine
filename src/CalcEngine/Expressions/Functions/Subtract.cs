@@ -15,7 +15,7 @@ namespace CalcEngine.Expressions.Functions
 		/// </summary>
 		internal Subtract()
 		{
-			NumberOfParameters = -1;
+			NumberOfParameters = VARIABLE_NUMBER_OF_PARAMETERS;
 		}
 
 

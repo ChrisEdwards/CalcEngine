@@ -15,7 +15,7 @@ namespace CalcEngine.Expressions.Functions
 		/// </summary>
 		internal Divide()
 		{
-			base.NumberOfParameters = 2;
+			NumberOfParameters = 2;
 		}
 
 
@@ -30,8 +30,10 @@ namespace CalcEngine.Expressions.Functions
 		{
 			if ( d2 == 0.0 )
 				return 0.0;
+
 			if ( !( d1.HasValue & d2.HasValue ) )
 				return null;
+
 			return d1.GetValueOrDefault() / d2.GetValueOrDefault();
 		}
 
@@ -43,11 +45,13 @@ namespace CalcEngine.Expressions.Functions
 		/// <exception cref="T:System.ApplicationException">For Invalid Parameter Type.</exception>
 		/// <param name="param1">Numerator (As Object)</param>
 		/// <param name="param2">Denominator (As Object)</param>
+		/// <exception cref="ApplicationException">Invalid parameter type</exception>
 		internal virtual object DoDivide( object param1, object param2 )
 		{
-			if ( !( param1 is double ) || !( param2 is double ) )
-				throw new ApplicationException( "Invalid parameter type" );
-			return DoDivide( (double)param1, (double)param2 );
+			if ( ( param1 is double ) && ( param2 is double ) )
+				return DoDivide( (double)param1, (double)param2 );
+
+			throw new ApplicationException( "Invalid parameter type" );
 		}
 
 

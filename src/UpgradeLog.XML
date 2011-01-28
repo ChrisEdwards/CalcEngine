@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="CalcEngine">
+</Property><Property Name="Solution File" Value="C:\Projects\CalcEngine\src\CalcEngine.sln">
+</Property><Property Name="Date" Value="Friday, January 28, 2011">
+</Property><Property Name="Time" Value="11:26 AM">
+</Property></Properties><Event ErrorLevel="0" Project="CalcEngine" Source="CalcEngine\CalcEngine.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="CalcEngine" Source="CalcEngine\CalcEngine.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="CalcEngine.Tests" Source="CalcEngine.Tests\CalcEngine.Tests.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="CalcEngine.Tests" Source="CalcEngine.Tests\CalcEngine.Tests.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="CalcEngine.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="CalcEngine.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="CalcEngine" Source="CalcEngine\CalcEngine.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="CalcEngine.Tests" Source="CalcEngine.Tests\CalcEngine.Tests.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

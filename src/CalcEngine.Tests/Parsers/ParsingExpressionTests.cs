@@ -85,14 +85,15 @@ namespace CalcEngine.Tests.Parsers
 					);
 		}
 
-		[Test]
+
+		[ Test ]
 		public void parsing_round_function()
 		{
 			AstNode node = _parser.ParseExpression( "Round( 2.1 )" );
 
-			node.ShouldBe_Function<Round>(
-					x => x.ShouldBe_LiteralValue(2.1)
-				);
+			node.ShouldBe_Function< Round >(
+					x => x.ShouldBe_LiteralValue( 2.1 )
+					);
 		}
 	}
 }

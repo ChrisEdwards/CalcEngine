@@ -1,0 +1,147 @@
+<CodeStyleSettings>
+  <CSharp>
+    <FormatSettings>
+      <BLANK_LINES_AROUND_INVOCABLE>2</BLANK_LINES_AROUND_INVOCABLE>
+      <BLANK_LINES_AROUND_NAMESPACE>2</BLANK_LINES_AROUND_NAMESPACE>
+      <BLANK_LINES_AROUND_REGION>2</BLANK_LINES_AROUND_REGION>
+      <BLANK_LINES_AROUND_TYPE>2</BLANK_LINES_AROUND_TYPE>
+      <CONTINUOUS_INDENT_MULTIPLIER>2</CONTINUOUS_INDENT_MULTIPLIER>
+      <EMPTY_BLOCK_STYLE>TOGETHER_SAME_LINE</EMPTY_BLOCK_STYLE>
+      <FORCE_ATTRIBUTE_STYLE>SEPARATE</FORCE_ATTRIBUTE_STYLE>
+      <FORCE_FOR_BRACES_STYLE>ONLY_FOR_MULTILINE</FORCE_FOR_BRACES_STYLE>
+      <FORCE_FOREACH_BRACES_STYLE>ONLY_FOR_MULTILINE</FORCE_FOREACH_BRACES_STYLE>
+      <FORCE_IFELSE_BRACES_STYLE>ONLY_FOR_MULTILINE</FORCE_IFELSE_BRACES_STYLE>
+      <FORCE_WHILE_BRACES_STYLE>ONLY_FOR_MULTILINE</FORCE_WHILE_BRACES_STYLE>
+      <INDENT_NESTED_FIXED_STMT>True</INDENT_NESTED_FIXED_STMT>
+      <INDENT_NESTED_USINGS_STMT>True</INDENT_NESTED_USINGS_STMT>
+      <MODIFIERS_ORDER IsNull="False">
+        <Item>public</Item>
+        <Item>protected</Item>
+        <Item>internal</Item>
+        <Item>private</Item>
+        <Item>new</Item>
+        <Item>abstract</Item>
+        <Item>virtual</Item>
+        <Item>override</Item>
+        <Item>sealed</Item>
+        <Item>static</Item>
+        <Item>readonly</Item>
+        <Item>extern</Item>
+        <Item>unsafe</Item>
+        <Item>volatile</Item>
+      </MODIFIERS_ORDER>
+      <PLACE_CONSTRUCTOR_INITIALIZER_ON_SAME_LINE>False</PLACE_CONSTRUCTOR_INITIALIZER_ON_SAME_LINE>
+      <PLACE_SIMPLE_LINQ_ON_SINGLE_LINE>False</PLACE_SIMPLE_LINQ_ON_SINGLE_LINE>
+      <SPACE_AFTER_TYPECAST_PARENTHESES>False</SPACE_AFTER_TYPECAST_PARENTHESES>
+      <SPACE_AROUND_MULTIPLICATIVE_OP>True</SPACE_AROUND_MULTIPLICATIVE_OP>
+      <SPACE_WITHIN_ATTRIBUTE_BRACKETS>True</SPACE_WITHIN_ATTRIBUTE_BRACKETS>
+      <SPACE_WITHIN_CATCH_PARENTHESES>True</SPACE_WITHIN_CATCH_PARENTHESES>
+      <SPACE_WITHIN_FIXED_PARENTHESES>True</SPACE_WITHIN_FIXED_PARENTHESES>
+      <SPACE_WITHIN_FOR_PARENTHESES>True</SPACE_WITHIN_FOR_PARENTHESES>
+      <SPACE_WITHIN_FOREACH_PARENTHESES>True</SPACE_WITHIN_FOREACH_PARENTHESES>
+      <SPACE_WITHIN_IF_PARENTHESES>True</SPACE_WITHIN_IF_PARENTHESES>
+      <SPACE_WITHIN_LOCK_PARENTHESES>True</SPACE_WITHIN_LOCK_PARENTHESES>
+      <SPACE_WITHIN_METHOD_CALL_PARENTHESES>True</SPACE_WITHIN_METHOD_CALL_PARENTHESES>
+      <SPACE_WITHIN_METHOD_PARENTHESES>True</SPACE_WITHIN_METHOD_PARENTHESES>
+      <SPACE_WITHIN_PARENTHESES>True</SPACE_WITHIN_PARENTHESES>
+      <SPACE_WITHIN_SIZEOF_PARENTHESES>True</SPACE_WITHIN_SIZEOF_PARENTHESES>
+      <SPACE_WITHIN_SWITCH_PARENTHESES>True</SPACE_WITHIN_SWITCH_PARENTHESES>
+      <SPACE_WITHIN_TYPE_ARGUMENT_ANGLES>True</SPACE_WITHIN_TYPE_ARGUMENT_ANGLES>
+      <SPACE_WITHIN_TYPE_PARAMETER_ANGLES>True</SPACE_WITHIN_TYPE_PARAMETER_ANGLES>
+      <SPACE_WITHIN_TYPEOF_PARENTHESES>True</SPACE_WITHIN_TYPEOF_PARENTHESES>
+      <SPACE_WITHIN_USING_PARENTHESES>True</SPACE_WITHIN_USING_PARENTHESES>
+      <SPACE_WITHIN_WHILE_PARENTHESES>True</SPACE_WITHIN_WHILE_PARENTHESES>
+      <WRAP_ARGUMENTS_STYLE>CHOP_IF_LONG</WRAP_ARGUMENTS_STYLE>
+      <WRAP_LIMIT>180</WRAP_LIMIT>
+    </FormatSettings>
+    <UsingsSettings />
+    <Naming2>
+      <EventHandlerPatternLong>$object$_On$event$</EventHandlerPatternLong>
+      <EventHandlerPatternShort>$event$Handler</EventHandlerPatternShort>
+      <ExceptionName IsNull="False">
+      </ExceptionName>
+      <OverrideDefaultSettings>True</OverrideDefaultSettings>
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="TypesAndNamespaces">
+        <ExtraRule Prefix="" Suffix="" Style="Aa_bb" />
+      </PredefinedRule>
+      <PredefinedRule Inspect="True" Prefix="I" Suffix="" Style="AaBb" ElementKind="Interfaces" />
+      <PredefinedRule Inspect="True" Prefix="T" Suffix="" Style="AaBb" ElementKind="TypeParameters" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="MethodPropertyEvent" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="Locals" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="LocalConstants">
+        <ExtraRule Prefix="" Suffix="" Style="AaBb" />
+      </PredefinedRule>
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="Parameters" />
+      <PredefinedRule Inspect="True" Prefix="_" Suffix="" Style="aaBb" ElementKind="PublicFields" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Constants" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="StaticReadonly" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="EnumMember" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Other" />
+      <PredefinedRule Inspect="True" Prefix="_" Suffix="" Style="aaBb" ElementKind="PrivateInstanceFields" />
+      <PredefinedRule Inspect="True" Prefix="_" Suffix="" Style="aaBb" ElementKind="PrivateStaticFields" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PrivateConstants" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PrivateStaticReadonly" />
+      <UserRule Inspect="True" Prefix="" Suffix="" Style="AaBb" StaticnessKind="Instance" AccessRight="Public" Description="Test Names">
+        <ElementKinds>
+          <Kind Name="CLASS" />
+          <Kind Name="METHOD" />
+        </ElementKinds>
+        <ExtraRule Prefix="" Suffix="" Style="Aa_bb" />
+      </UserRule>
+    </Naming2>
+  </CSharp>
+  <VB>
+    <FormatSettings />
+    <ImportsSettings />
+    <Naming2>
+      <EventHandlerPatternLong>$object$_On$event$</EventHandlerPatternLong>
+      <EventHandlerPatternShort>$event$Handler</EventHandlerPatternShort>
+    </Naming2>
+  </VB>
+  <Web>
+    <Naming2>
+      <UserRule Name="ASP_TAG_NAME" Inspect="True" Prefix="" Suffix="" Style="AaBb" />
+      <UserRule Name="ASP_TAG_PREFIX" Inspect="True" Prefix="" Suffix="" Style="AaBb" />
+      <UserRule Name="ASP_FIELD" Inspect="True" Prefix="" Suffix="" Style="AaBb" />
+      <UserRule Name="ASP_HTML_CONTROL" Inspect="True" Prefix="" Suffix="" Style="AaBb" />
+    </Naming2>
+  </Web>
+  <Xaml>
+    <Naming2>
+      <UserRule Name="XAML_FIELD" Inspect="True" Prefix="_" Suffix="" Style="aaBb" />
+      <UserRule Name="NAMESPACE_ALIAS" Inspect="True" Prefix="" Suffix="" Style="AaBb" />
+      <UserRule Name="XAML_RESOURCE" Inspect="True" Prefix="" Suffix="" Style="AaBb" />
+    </Naming2>
+  </Xaml>
+  <XML>
+    <FormatSettings>
+      <MaxSingleLineTagLength>150</MaxSingleLineTagLength>
+    </FormatSettings>
+  </XML>
+  <GenerateMemberBody />
+  <Naming2>
+    <EventHandlerPatternLong>$object$_On$event$</EventHandlerPatternLong>
+    <EventHandlerPatternShort>$event$Handler</EventHandlerPatternShort>
+    <ExceptionName IsNull="False">
+    </ExceptionName>
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PublicFields" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="TypesAndNamespaces" />
+    <PredefinedRule Inspect="True" Prefix="I" Suffix="" Style="AaBb" ElementKind="Interfaces" />
+    <PredefinedRule Inspect="True" Prefix="T" Suffix="" Style="AaBb" ElementKind="TypeParameters" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="MethodPropertyEvent">
+      <ExtraRule Prefix="" Suffix="" Style="Aa_bb" />
+    </PredefinedRule>
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="Locals" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="LocalConstants" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="Parameters" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Constants" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="StaticReadonly" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="EnumMember" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Other" />
+    <PredefinedRule Inspect="True" Prefix="_" Suffix="" Style="aaBb" ElementKind="PrivateInstanceFields" />
+    <PredefinedRule Inspect="True" Prefix="_" Suffix="" Style="aaBb" ElementKind="PrivateStaticFields" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PrivateConstants" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PrivateStaticReadonly" />
+    <Abbreviation Text="ID" />
+  </Naming2>
+</CodeStyleSettings>

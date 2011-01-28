@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,6 +12,10 @@
     <AssemblyName>CalcEngine</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,6 +74,7 @@
     <Compile Include="Expressions\IAstLiteralNodeVisitor.cs" />
     <Compile Include="Expressions\IAstNodeVisitor.cs" />
     <Compile Include="Expressions\IAstValueNodeVisitor.cs" />
+    <Compile Include="Extensions\ITreeExtensions.cs" />
     <Compile Include="Parsers\Antlr\AntlrCalcEngineLexer.cs" />
     <Compile Include="Parsers\Antlr\AntlrCalcEngineParser.cs" />
     <Compile Include="Parsers\Antlr\TokenTypes.cs" />

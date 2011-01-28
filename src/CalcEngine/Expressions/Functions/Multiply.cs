@@ -16,7 +16,7 @@ namespace CalcEngine.Expressions.Functions
 		/// </summary>
 		internal Multiply()
 		{
-			NumberOfParameters = -1;
+			NumberOfParameters = VARIABLE_NUMBER_OF_PARAMETERS;
 		}
 
 
@@ -27,10 +27,10 @@ namespace CalcEngine.Expressions.Functions
 		/// <param name="d2">Double argument to multiply.</param>
 		internal virtual double? DoMultiply( double? d1, double? d2 )
 		{
-			if ( !( d1.HasValue & d2.HasValue ) )
-				return null;
+			if ( d1.HasValue & d2.HasValue )
+				return d1.GetValueOrDefault() * d2.GetValueOrDefault();
 
-			return d1.GetValueOrDefault() * d2.GetValueOrDefault();
+			return null;
 		}
 
 
@@ -41,12 +41,13 @@ namespace CalcEngine.Expressions.Functions
 		/// each of the specific types rather than hardcoded here.</remarks>
 		/// <param name="param1">Object argument to multiply.</param>
 		/// <param name="param2">Object argument to multiply</param>
+		/// <exception cref="ApplicationException">Invalid parameter type</exception>
 		internal virtual object DoMultiply( object param1, object param2 )
 		{
-			if ( !( param1 is double ) || !( param2 is double ) )
-				throw new ApplicationException( "Invalid parameter type" );
+			if ( ( param1 is double ) && ( param2 is double ) )
+				return DoMultiply( (double)param1, (double)param2 );
 
-			return DoMultiply( (double)param1, (double)param2 );
+			throw new ApplicationException( "Invalid parameter type" );
 		}
 
 

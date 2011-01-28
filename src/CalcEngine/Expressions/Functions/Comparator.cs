@@ -46,7 +46,7 @@ namespace CalcEngine.Expressions.Functions
 		internal Comparator( ComparatorType comparatorType )
 		{
 			_comparatorType = comparatorType;
-			base.NumberOfParameters = 2;
+			NumberOfParameters = 2;
 		}
 
 
@@ -58,12 +58,10 @@ namespace CalcEngine.Expressions.Functions
 		/// <exception cref="ApplicationException"><c>ApplicationException</c>.</exception>
 		protected virtual int DoCompare( object param1, object param2 )
 		{
-			if ( !( param1 is IComparable ) || !( param2 is IComparable ) )
-			{
-				throw new ApplicationException( "Comparison not defined for object of type " + param1.GetType().FullName + " and " +
-				                                param1.GetType().FullName );
-			}
-			return ( (IComparable)param1 ).CompareTo( param2 );
+			if ( ( param1 is IComparable ) && ( param2 is IComparable ) )
+				return ( (IComparable)param1 ).CompareTo( param2 );
+
+			throw new ApplicationException( "Comparison not defined for object of type " + param1.GetType().FullName + " and " + param1.GetType().FullName );
 		}
 
 
@@ -78,6 +76,7 @@ namespace CalcEngine.Expressions.Functions
 		/// </summary>
 		/// <param name="param1">The left-hand operand to compare.</param>
 		/// <param name="param2">The right-hand operand to compare.</param>
+		/// <exception cref="ApplicationException">ir</exception>
 		internal virtual bool DoEqual( object param1, object param2 )
 		{
 			throw new ApplicationException( "ir" );
@@ -86,9 +85,7 @@ namespace CalcEngine.Expressions.Functions
 
 		internal bool DoGreaterThan( double? param1, double? param2 )
 		{
-			double? cs0 = param1;
-			double? cs1 = param2;
-			return ( ( cs0.GetValueOrDefault() > cs1.GetValueOrDefault() ) && ( cs0.HasValue & cs1.HasValue ) );
+			return ( ( param1.GetValueOrDefault() > param2.GetValueOrDefault() ) && ( param1.HasValue & param2.HasValue ) );
 		}
 
 
@@ -105,9 +102,7 @@ namespace CalcEngine.Expressions.Functions
 
 		internal bool DoGreaterThanOrEqual( double? param1, double? param2 )
 		{
-			double? cs0 = param1;
-			double? cs1 = param2;
-			return ( ( cs0.GetValueOrDefault() >= cs1.GetValueOrDefault() ) && ( cs0.HasValue & cs1.HasValue ) );
+			return ( ( param1.GetValueOrDefault() >= param2.GetValueOrDefault() ) && ( param1.HasValue & param2.HasValue ) );
 		}
 
 
@@ -124,9 +119,7 @@ namespace CalcEngine.Expressions.Functions
 
 		internal bool DoLessThan( double? param1, double? param2 )
 		{
-			double? cs0 = param1;
-			double? cs1 = param2;
-			return ( ( cs0.GetValueOrDefault() < cs1.GetValueOrDefault() ) && ( cs0.HasValue & cs1.HasValue ) );
+			return ( ( param1.GetValueOrDefault() < param2.GetValueOrDefault() ) && ( param1.HasValue & param2.HasValue ) );
 		}
 
 
@@ -143,9 +136,7 @@ namespace CalcEngine.Expressions.Functions
 
 		internal bool DoLessThanOrEqual( double? param1, double? param2 )
 		{
-			double? cs0 = param1;
-			double? cs1 = param2;
-			return ( ( cs0.GetValueOrDefault() <= cs1.GetValueOrDefault() ) && ( cs0.HasValue & cs1.HasValue ) );
+			return ( ( param1.GetValueOrDefault() <= param2.GetValueOrDefault() ) && ( param1.HasValue & param2.HasValue ) );
 		}
 
 
@@ -162,11 +153,8 @@ namespace CalcEngine.Expressions.Functions
 
 		internal bool DoNotEqual( double? param1, double? param2 )
 		{
-			double? cs0 = param1;
-			double? cs1 = param2;
-
-			if ( cs0.GetValueOrDefault() == cs1.GetValueOrDefault() )
-				return ( cs0.HasValue != cs1.HasValue );
+			if ( param1.GetValueOrDefault() == param2.GetValueOrDefault() )
+				return ( param1.HasValue != param2.HasValue );
 
 			return true;
 		}
@@ -226,10 +214,7 @@ namespace CalcEngine.Expressions.Functions
 						break;
 				}
 
-				if ( result )
-					stack.Push( 1.0 );
-				else
-					stack.Push( 0.0 );
+				stack.Push( result ? 1.0 : 0.0 );
 			}
 		}
 
@@ -238,6 +223,7 @@ namespace CalcEngine.Expressions.Functions
 		/// Gets the operator symbol or function name for this command.
 		/// </summary>
 		/// <value>The symbol.</value>
+		/// <exception cref="ApplicationException">Invalid ComparatorType Encountered.</exception>
 		internal override string Symbol
 		{
 			get

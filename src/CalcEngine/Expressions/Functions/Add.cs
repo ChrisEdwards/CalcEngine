@@ -14,7 +14,7 @@ namespace CalcEngine.Expressions.Functions
 		/// </summary>
 		internal Add()
 		{
-			base.NumberOfParameters = 2;
+			NumberOfParameters = 2;
 		}
 
 
@@ -24,13 +24,12 @@ namespace CalcEngine.Expressions.Functions
 		/// </summary>
 		/// <param name="param1">Object to add to.</param>
 		/// <param name="param2">Object to add to the first.</param>
-		internal virtual double? DoAdd(double? param1, double? param2)
+		internal virtual double? DoAdd( double? param1, double? param2 )
 		{
-			double? cs0 = param1;
-			double? cs1 = param2;
-			if (!(cs0.HasValue & cs1.HasValue))
+			if ( !( param1.HasValue & param2.HasValue ) )
 				return null;
-			return cs0.GetValueOrDefault() + cs1.GetValueOrDefault();
+
+			return param1.GetValueOrDefault() + param2.GetValueOrDefault();
 		}
 
 
@@ -39,18 +38,21 @@ namespace CalcEngine.Expressions.Functions
 		/// the stack and pushes it back on the stack.
 		/// </summary>
 		/// <param name="stack"></param>
-		internal override void Run(Stack<double?> stack)
+		/// <exception cref="System.InvalidOperationException">The <see cref="T:System.Collections.Generic.Stack`1" /> is empty.</exception>
+		internal override void Run( Stack< double? > stack )
 		{
-			CheckStack(stack);
+			CheckStack( stack );
+
 			double? param1 = stack.Pop();
 			double? param2 = stack.Pop();
-			if (!param1.HasValue || !param2.HasValue)
-				stack.Push(null);
+
+			double? sum;
+			if ( param1.HasValue && param2.HasValue )
+				sum = DoAdd( param2, param1 );
 			else
-			{
-				double? sum = DoAdd(param2, param1);
-				stack.Push(sum);
-			}
+				sum = null;
+
+			stack.Push( sum );
 		}
 
 

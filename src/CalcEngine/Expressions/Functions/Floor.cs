@@ -22,9 +22,9 @@ namespace CalcEngine.Expressions.Functions
 		/// Overloads DoFloor to operate on a double.
 		/// </summary>
 		/// <param name="d1">The number to Floor.</param>
-		internal virtual double DoFloor(double? d1)
+		internal virtual double DoFloor( double? d1 )
 		{
-			return Math.Floor(d1.Value);
+			return Math.Floor( d1.Value );
 		}
 
 
@@ -32,17 +32,19 @@ namespace CalcEngine.Expressions.Functions
 		/// Gets data from the stack, performs the floor operation, then pushes the result on the stack.
 		/// </summary>
 		/// <param name="stack">The stack to operate upon.</param>
-		internal override void Run(Stack<double?> stack)
+		internal override void Run( Stack< double? > stack )
 		{
-			CheckStack(stack);
+			CheckStack( stack );
+
 			double? param = stack.Pop();
-			if (!param.HasValue)
-				stack.Push(null);
+
+			double? returnValue;
+			if ( param.HasValue )
+				returnValue = DoFloor( param );
 			else
-			{
-				double? returnValue = DoFloor(param);
-				stack.Push(returnValue);
-			}
+				returnValue = null;
+
+			stack.Push( returnValue );
 		}
 
 

@@ -21,16 +21,17 @@ namespace CalcEngine.Expressions.Functions
 		/// before exiting.
 		/// </summary>
 		/// <param name="valuesToAggregate">The valuesToAggregate to aggregate.</param>
-		internal override double? DoAggregate(double?[] valuesToAggregate)
+		internal override double? DoAggregate( double?[] valuesToAggregate )
 		{
-			if (valuesToAggregate.Length == 0)
+			if ( valuesToAggregate.Length == 0 )
 				return null;
 
 			double? lowestValue = valuesToAggregate[0];
-			for (int i = 0; i < valuesToAggregate.Length; i++)
+
+			foreach ( double? t in valuesToAggregate )
 			{
-				if (Comparator.DoLessThan(valuesToAggregate[i], lowestValue))
-					lowestValue = valuesToAggregate[i];
+				if ( Comparator.DoLessThan( t, lowestValue ) )
+					lowestValue = t;
 			}
 
 			return lowestValue;

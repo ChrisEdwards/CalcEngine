@@ -15,7 +15,6 @@ namespace CalcEngine.Expressions.Functions
 	/// </summary>
 	public abstract class PostfixMathCommand
 	{
-
 		/// <summary>
 		/// This value, if used as the numberOfParameters, denotes that the function
 		/// supports a variable number of parameters.
@@ -27,10 +26,11 @@ namespace CalcEngine.Expressions.Functions
 		/// Check whether the stack is not null, throw a ApplicationException if it is.
 		/// </summary>
 		/// <param name="inStack">The stack to check.</param>
-		internal virtual void CheckStack(Stack<double?> inStack)
+		/// <exception cref="ApplicationException">Stack argument null</exception>
+		internal virtual void CheckStack( Stack< double? > inStack )
 		{
-			if (inStack == null)
-				throw new ApplicationException("Stack argument null");
+			if ( inStack == null )
+				throw new ApplicationException( "Stack argument null" );
 		}
 
 
@@ -41,9 +41,10 @@ namespace CalcEngine.Expressions.Functions
 		/// pushing the result back on the stack.
 		/// </summary>
 		/// <param name="stack"></param>
-		internal virtual void Run(Stack<double?> stack)
+		/// <exception cref="ApplicationException">run() method of PostfixMathCommand called</exception>
+		internal virtual void Run( Stack< double? > stack )
 		{
-			throw new ApplicationException("run() method of PostfixMathCommand called");
+			throw new ApplicationException( "run() method of PostfixMathCommand called" );
 		}
 
 
@@ -63,7 +64,7 @@ namespace CalcEngine.Expressions.Functions
 		/// </summary>
 		internal bool SupportsVariableNumberOfParameters
 		{
-			get { return (NumberOfParameters == -1); }
+			get { return ( NumberOfParameters == VARIABLE_NUMBER_OF_PARAMETERS ); }
 		}
 
 		/// <summary>
