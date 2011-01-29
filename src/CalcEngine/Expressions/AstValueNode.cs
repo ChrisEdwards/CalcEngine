@@ -10,7 +10,7 @@ namespace CalcEngine.Expressions
 		/// Retrieves the value for this node.
 		/// </summary>
 		/// <param name="sessionData">The domain row.</param>
-		/// <returns></returns>
+		/// <returns>The value of this node.</returns>
 		internal abstract double? GetValue( object sessionData );
 	}
 }

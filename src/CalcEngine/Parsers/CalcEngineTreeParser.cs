@@ -23,7 +23,7 @@ namespace CalcEngine.Parsers
 		/// Parses the expression.
 		/// </summary>
 		/// <param name="source">The source.</param>
-		/// <returns></returns>
+		/// <returns>The parsed AstNode tree.</returns>
 		/// <exception cref="NoViableAltException"><c>NoViableAltException</c>.</exception>
 		internal AstNode ParseExpression( ITree source )
 		{
@@ -57,8 +57,8 @@ namespace CalcEngine.Parsers
 		/// <summary>
 		/// Parses the operator node.
 		/// </summary>
-		/// <param name="source">The source.</param>
-		/// <returns></returns>
+		/// <param name="source">The source Antlr Tree to parse..</param>
+		/// <returns>The parsed AstNode.</returns>
 		private AstNode ParseOperatorNode( ITree source )
 		{
 			return new AstFunctionNode(
@@ -71,8 +71,8 @@ namespace CalcEngine.Parsers
 		/// <summary>
 		/// Parses the function node.
 		/// </summary>
-		/// <param name="source">The source.</param>
-		/// <returns></returns>
+		/// <param name="source">The source Antlr Tree to parse..</param>
+		/// <returns>The parsed AstNode.</returns>
 		/// <exception cref="NoViableAltException"><c>NoViableAltException</c>.</exception>
 		private AstNode ParseFunctionNode( ITree source )
 		{
@@ -84,10 +84,10 @@ namespace CalcEngine.Parsers
 
 
 		/// <summary>
-		/// Gets the command for operator.
+		/// Gets the command for the function called in the specified source tree.
 		/// </summary>
-		/// <param name="source">The source.</param>
-		/// <returns></returns>
+		/// <param name="source">The source Antlr tree representing a function call..</param>
+		/// <returns>The parsed AstFunctionNode.</returns>
 		/// <exception cref="NoViableAltException"><c>NoViableAltException</c>.</exception>
 		private static PostfixMathCommand GetCommandForOperator( ITree source )
 		{

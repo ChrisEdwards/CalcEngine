@@ -15,6 +15,7 @@ namespace CalcEngine.Expressions
 		/// </summary>
 		/// <param name="node">The AstFunctionNode encountered by the visitor.</param>
 		/// <param name="sessionData">Misc data that may be used by the visitor.</param>
+		/// <returns>The visit context object.</returns>
 		object Visit( AstFunctionNode node, object sessionData );
 	}
 }

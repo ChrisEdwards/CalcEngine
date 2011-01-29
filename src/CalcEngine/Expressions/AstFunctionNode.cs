@@ -6,8 +6,7 @@ namespace CalcEngine.Expressions
 {
 	/// <summary>
 	/// Defines a Function to be executed within the Abstract Syntax Tree. This
-	/// accepts
-	/// parameters as child Nodes.
+	/// accepts parameters as child Nodes.
 	/// </summary>
 	internal class AstFunctionNode : AstNode
 	{
@@ -23,7 +22,7 @@ namespace CalcEngine.Expressions
 
 
 		/// <summary>
-		/// Constructs a Function node given the function name and the math command.
+		/// Initializes a new instance of the AstFunctionNode class given the function name and the math command.
 		/// </summary>
 		/// <param name="function">The PostFixMathCommand object used to process this
 		/// function's parameters and supply the result.</param>
@@ -36,11 +35,11 @@ namespace CalcEngine.Expressions
 
 
 		/// <summary>
-		/// Constructs a Function node given the function name and the math command.
+		/// Initializes a new instance of the AstFunctionNode class given the function name and the math command.
 		/// </summary>
 		/// <param name="function">The PostFixMathCommand object used to process this
 		/// function's parameters and supply the result.</param>
-		/// <param name="functionName">The name of the function, or operator symbol.</param>
+		/// <param name="children">The children.</param>
 		internal AstFunctionNode( PostfixMathCommand function, IEnumerable< AstNode > children )
 		{
 			_pfmc = function;
@@ -52,20 +51,64 @@ namespace CalcEngine.Expressions
 
 
 		/// <summary>
+		/// Gets the name of the node (operator symbol or function name).
+		/// </summary>
+		internal virtual string Name
+		{
+			get { return _name; }
+		}
+
+		/// <summary>
+		/// Gets the math command class associated with this node.
+		/// </summary>
+		internal virtual PostfixMathCommand Pfmc
+		{
+			get { return _pfmc; }
+		}
+
+		public override int Type
+		{
+			get
+			{
+				const int NodeType = 0;
+				string cs0 = Pfmc.Symbol;
+				if ( cs0 == null )
+					return NodeType;
+				if ( cs0 != "==" )
+				{
+					if ( cs0 != "and" )
+						return NodeType;
+				}
+				else
+					return 4;
+				return 7;
+			}
+		}
+
+
+		/// <summary>
 		/// Accept a visitor object. The visitor must be of type IAstNodeVisitor, however
 		/// if the visitor also implements the more type-specific IAstFunctionNodeVisitor,
 		/// it uses its interface for the visit callback.
-		/// <p />
+		/// <p/>
 		/// This is an implementation of the AcyclicVisitor pattern by Robert C. Martin.
-		/// Details of the pattern and its usage can be found at ObjectMentor.com.<br />
+		/// Details of the pattern and its usage can be found at ObjectMentor.com.<br/>
 		/// URL: http://www.objectmentor.com/resources/articles/acv.pdf
 		/// </summary>
-		/// <param name="visitor">The object visiting this node.</param>
-		/// <param name="sessionData">Misc data to use during this visit.</param>
+		/// <param name="visitor">
+		/// The object visiting this node.
+		/// </param>
+		/// <param name="sessionData">
+		/// Misc data to use during this visit.
+		/// </param>
+		/// <returns>
+		/// The session data object.
+		/// </returns>
 		internal override object Accept( IAstNodeVisitor visitor, object sessionData )
 		{
 			if ( visitor is IAstFunctionNodeVisitor )
 				return ( (IAstFunctionNodeVisitor)visitor ).Visit( this, sessionData );
+
 			return visitor.Visit( this, sessionData );
 		}
 
@@ -83,7 +126,7 @@ namespace CalcEngine.Expressions
 			if ( ( obj == null ) || ( GetType() != obj.GetType() ) )
 				return false;
 			var node = (AstFunctionNode)obj;
-			return ( Name.ToLower().Equals( node.Name.ToLower() ) && ChildrenEqual( this, node ) );
+			return Name.ToLower().Equals( node.Name.ToLower() ) && ChildrenEqual( this, node );
 		}
 
 
@@ -102,6 +145,7 @@ namespace CalcEngine.Expressions
 				for ( int i = 0; i < Children.Count; i++ )
 					result ^= GetChild( i ).GetHashCode();
 			}
+
 			return result;
 		}
 
@@ -109,6 +153,9 @@ namespace CalcEngine.Expressions
 		/// <summary>
 		/// Returns a string containing the function name.
 		/// </summary>
+		/// <returns>
+		/// string containing the function name..
+		/// </returns>
 		public override string ToString()
 		{
 			string outString = "( Function \"" + Name + "\" ";
@@ -117,43 +164,8 @@ namespace CalcEngine.Expressions
 				for ( int i = 0; i < Children.Count; i++ )
 					outString = outString + GetChild( i );
 			}
-			return ( outString + ") " );
-		}
 
-
-		/// <summary>
-		/// Returns the name of the node (operator symbol or function name).
-		/// </summary>
-		internal virtual string Name
-		{
-			get { return _name; }
-		}
-
-		/// <summary>
-		/// Returns the math command class associated with this node.
-		/// </summary>
-		internal virtual PostfixMathCommand Pfmc
-		{
-			get { return _pfmc; }
-		}
-
-		public override int Type
-		{
-			get
-			{
-				int nodeType = 0;
-				string cs0 = Pfmc.Symbol;
-				if ( cs0 == null )
-					return nodeType;
-				if ( cs0 != "==" )
-				{
-					if ( cs0 != "and" )
-						return nodeType;
-				}
-				else
-					return 4;
-				return 7;
-			}
+			return outString + ") ";
 		}
 	}
 }

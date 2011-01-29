@@ -4,6 +4,8 @@ using CalcEngine.Parsers;
 using CalcEngine.Tests.Assertions;
 using NUnit.Framework;
 
+// ReSharper disable InconsistentNaming
+
 
 namespace CalcEngine.Tests.Parsers
 {
@@ -90,10 +92,12 @@ namespace CalcEngine.Tests.Parsers
 		public void parsing_round_function()
 		{
 			AstNode node = _parser.ParseExpression( "Round( 2.1 )" );
-
 			node.ShouldBe_Function< Round >(
 					x => x.ShouldBe_LiteralValue( 2.1 )
 					);
 		}
 	}
 }
+
+
+// ReSharper restore InconsistentNaming

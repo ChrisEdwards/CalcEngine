@@ -12,9 +12,11 @@ namespace CalcEngine.Expressions
 
 
 		/// <summary>
-		/// Constructor that creates the object and initializes it with the providedvalue.
+		/// Initializes a new instance of the <see cref="AstLiteralNode"/> class with the given intial value.
 		/// </summary>
-		/// <param name="initialValue">Value of the constant.</param>
+		/// <param name="initialValue">
+		/// Value of the constant.
+		/// </param>
 		internal AstLiteralNode( double? initialValue )
 		{
 			SetValue( initialValue );
@@ -27,16 +29,17 @@ namespace CalcEngine.Expressions
 		/// or the next most type-specific IAstValueNodeVisitor interface, it uses the
 		/// interface for the visit callback. Note that it uses the most type-specific
 		/// interface as per its own inheritence tree. ie.
-		/// <p />
-		/// AstLiteralNode -&gt; AstValueNode -&gt; SimpleNode <br />
+		/// <p/>
+		/// AstLiteralNode -&gt; AstValueNode -&gt; SimpleNode <br/>
 		/// IAstLiteralNodeVisitor -&gt; IAstValueNodeVisitor -&gt; IAstNodeVisitor
-		/// <p />
+		/// <p/>
 		/// This is an implementation of the AcyclicVisitor pattern by Robert C. Martin.
-		/// Details of the pattern and its usage can be found at ObjectMentor.com.<br />
+		/// Details of the pattern and its usage can be found at ObjectMentor.com.<br/>
 		/// URL: http://www.objectmentor.com/resources/articles/acv.pdf
 		/// </summary>
-		/// <param name="visitor">The object visiting this node.</param>
-		/// <param name="sessionData">Misc sessionData to use during this visit.</param>
+		/// <param name="visitor"> The object visiting this node. </param>
+		/// <param name="sessionData"> Misc sessionData to use during this visit. </param>
+		/// <returns> The session data object. </returns>
 		internal override object Accept( IAstNodeVisitor visitor, object sessionData )
 		{
 			if ( visitor is IAstLiteralNodeVisitor )
@@ -57,7 +60,7 @@ namespace CalcEngine.Expressions
 		/// </returns>
 		public override bool Equals( object obj )
 		{
-			if ( ( obj == null ) || ( base.GetType() != obj.GetType() ) )
+			if ( ( obj == null ) || ( GetType() != obj.GetType() ) )
 				return false;
 			var node = (AstLiteralNode)obj;
 			return GetValue().Equals( node.GetValue() );
@@ -69,31 +72,19 @@ namespace CalcEngine.Expressions
 		/// for use in hashing algorithms and data structures like a hash table.
 		/// </summary>
 		/// <remarks>^ bitwise or - true if and only if one is true</remarks>
-		/// <returns>
-		/// A hash code for the current <see cref="T:System.Object" />.
-		/// </returns>
+		/// <returns> A hash code for the current <see cref="T:System.Object" />. </returns>
 		public override int GetHashCode()
 		{
-			return ( "AstLiteralNode".GetHashCode() ^ GetValue().GetHashCode() );
-		}
-
-
-		/// <summary>
-		/// Retrieves the value of this Literal Node. Passes null as context as Literals
-		/// have the same value regardless of context.
-		/// </summary>
-		internal double? GetValue()
-		{
-			return GetValue( null );
+			return "AstLiteralNode".GetHashCode() ^ GetValue().GetHashCode();
 		}
 
 
 		/// <summary>
 		/// Gets the value for this LiteralNode.
 		/// </summary>
-		/// <param name="sessionData">The row.</param>
-		/// <returns></returns>
-		internal override double? GetValue( object sessionData )
+		/// <param name="sessionData">The session data to use as the current context..</param>
+		/// <returns>The value.</returns>
+		internal override double? GetValue( object sessionData = null )
 		{
 			return _literalValue;
 		}
@@ -103,6 +94,7 @@ namespace CalcEngine.Expressions
 		/// Sets the value of this Literal Node. Passes null as context as Literals
 		/// have the same value regardless of context.
 		/// </summary>
+		/// <param name="newValue">The new value.</param>
 		internal void SetValue( double? newValue )
 		{
 			_literalValue = newValue;
@@ -112,9 +104,10 @@ namespace CalcEngine.Expressions
 		/// <summary>
 		/// Returns a string containing the function name.
 		/// </summary>
+		/// <returns> The to string. </returns>
 		public override string ToString()
 		{
-			return ( ( "( Literal \"" + GetValue() + "\" " ) + ") " );
+			return ( "( Literal \"" + GetValue() + "\" " ) + ") ";
 		}
 	}
 }

@@ -12,9 +12,9 @@ namespace CalcEngine.Expressions
 	public abstract class AstNode : ICloneable
 	{
 		/// <summary>
-		/// The child nodes of this parent node.
+		/// Static counter used to automatically assign unique IDs to nodes.
 		/// </summary>
-		private List< AstNode > _children;
+		private static int _staticId;
 
 		/// <summary>
 		/// The unique identifier for this node.
@@ -22,23 +22,79 @@ namespace CalcEngine.Expressions
 		private readonly int _id = _staticId;
 
 		/// <summary>
+		/// The child nodes of this parent node.
+		/// </summary>
+		private List< AstNode > _children;
+
+		/// <summary>
 		/// The parent node this child node belongs to.
 		/// </summary>
 		private AstNode _parent;
 
-		/// <summary>
-		/// Static counter used to automatically assign unique IDs to nodes.
-		/// </summary>
-		private static int _staticId;
-
 
 		/// <summary>
-		/// Creates a default AstNode object auto-assigning the ID.
+		/// Initializes a new instance of the <see cref="AstNode"/> class auto-assigning the ID.
 		/// </summary>
 		internal AstNode()
 		{
 			Interlocked.Increment( ref _staticId );
 		}
+
+
+		/// <summary>
+		/// Gets the child nodes of this parent node.
+		/// </summary>
+		internal List< AstNode > Children
+		{
+			get { return _children; }
+		}
+
+		/// <summary>
+		/// Gets the unique identifier for this node.
+		/// Not currently used, but will be required in the future.
+		/// </summary>
+		internal virtual int Id
+		{
+			get { return _id; }
+		}
+
+		/// <summary>
+		/// Gets the number of child nodes under this node.
+		/// </summary>
+		public int NumChildren
+		{
+			get
+			{
+				if ( _children != null )
+					return _children.Count;
+				return 0;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the parent node this child node belongs to.
+		/// </summary>
+		public AstNode Parent
+		{
+			get { return _parent; }
+			set { _parent = value; }
+		}
+
+		public virtual int Type
+		{
+			get { throw new Exception( "The method or operation is not implemented." ); }
+			set { throw new Exception( "The method or operation is not implemented." ); }
+		}
+
+
+		#region ICloneable Members
+
+		public object Clone()
+		{
+			throw new Exception( "The method or operation is not implemented." );
+		}
+
+		#endregion
 
 
 		/// <summary>
@@ -50,7 +106,7 @@ namespace CalcEngine.Expressions
 		/// </summary>
 		/// <param name="visitor">Visitor object to call the "visit" upon.</param>
 		/// <param name="sessionData">Data relevant to the visitor's visit.</param>
-		/// <returns>object</returns>
+		/// <returns>The visitor context object.</returns>
 		internal abstract object Accept( IAstNodeVisitor visitor, object sessionData );
 
 
@@ -72,7 +128,7 @@ namespace CalcEngine.Expressions
 		/// </summary>
 		/// <param name="visitor">Visitor object to call the "visit" upon.</param>
 		/// <param name="data">Data relevant to the visitor's visit.</param>
-		/// <returns>object</returns>
+		/// <returns>The context object.</returns>
 		internal virtual object ChildrenAccept( IAstNodeVisitor visitor, object data )
 		{
 			if ( _children != null )
@@ -80,6 +136,7 @@ namespace CalcEngine.Expressions
 				foreach ( AstNode t in _children )
 					t.Accept( visitor, data );
 			}
+
 			return data;
 		}
 
@@ -102,13 +159,8 @@ namespace CalcEngine.Expressions
 						return false;
 				}
 			}
+
 			return true;
-		}
-
-
-		public object Clone()
-		{
-			throw new Exception( "The method or operation is not implemented." );
 		}
 
 
@@ -120,52 +172,6 @@ namespace CalcEngine.Expressions
 		public virtual AstNode GetChild( int index )
 		{
 			return _children[index];
-		}
-
-
-		/// <summary>
-		/// The child nodes of this parent node.
-		/// </summary>
-		internal List< AstNode > Children
-		{
-			get { return _children; }
-		}
-
-		/// <summary>
-		/// The unique identifier for this node.
-		/// Not currently used, but will be required in the future.
-		/// </summary>
-		internal virtual int Id
-		{
-			get { return _id; }
-		}
-
-		/// <summary>
-		/// Retrieves the number of child nodes under this node.
-		/// </summary>
-		public int NumChildren
-		{
-			get
-			{
-				if ( _children != null )
-					return _children.Count;
-				return 0;
-			}
-		}
-
-		/// <summary>
-		/// The parent node this child node belongs to.
-		/// </summary>
-		public AstNode Parent
-		{
-			get { return _parent; }
-			set { _parent = value; }
-		}
-
-		public virtual int Type
-		{
-			get { throw new Exception( "The method or operation is not implemented." ); }
-			set { throw new Exception( "The method or operation is not implemented." ); }
 		}
 	}
 }
