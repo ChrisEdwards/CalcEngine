@@ -1,19 +1,37 @@
-﻿using CalcEngine.Expressions.Functions;
+﻿using System;
 
 
 namespace CalcEngine.Tests.Assertions
 {
-	public class NodeExpectationFactory
+	public static class NodeExpectationFactory
 	{
-		public NodeExpectation ShouldBe_BinaryFunction< TExpectedFunction >( double? expectedLeftValue, double? expectedRightValue ) where TExpectedFunction : PostfixMathCommand
+		/// <summary>
+		/// Builds a NodeExpectation from an object. If its already an expectation, it just returns it back.
+		/// </summary>
+		/// <param name="expectation">The expectation.</param>
+		/// <returns>The NodeExpectation object that was built.</returns>
+		/// <exception cref="ArgumentException">childExpectations</exception>
+		public static NodeExpectation BuildExpectation( object expectationValue )
 		{
-			return new NodeExpectation( n => n.ShouldBe_BinaryFunction< TExpectedFunction >( expectedLeftValue, expectedRightValue ) );
+			if ( expectationValue is NodeExpectation )
+				return (NodeExpectation)expectationValue;
+
+			if ( expectationValue is double? || expectationValue is double )
+				return BuildExpectation( (double?)expectationValue );
+
+			if ( expectationValue is int )
+				return BuildExpectation( Double.Parse( expectationValue.ToString() ) );
+
+			throw new ArgumentException( "Invalid expectation encounterd. Expecting either a NodeExpectation or double?, but found " + expectationValue.GetType() + ".",
+			                             "expectationValue" );
 		}
 
 
-		public NodeExpectation ShouldBe_LiteralValue( double? expectedValue )
+		public static NodeExpectation BuildExpectation( double? value )
 		{
-			return new NodeExpectation( n => n.ShouldBe_LiteralValue( expectedValue ) );
+			return new NodeExpectation(
+					node => node.ShouldBe_LiteralValue( value )
+					);
 		}
 	}
 }

@@ -34,16 +34,19 @@ namespace CalcEngine.Tests.Assertions
 		}
 
 
-		public static void ShouldBe_Function< TExpectedFunction >( this AstNode node,
-		                                                           Func< NodeExpectationFactory, NodeExpectation > expectationLambda )
-				where TExpectedFunction : PostfixMathCommand
+		public static void ShouldBe_Function< TExpectedFunction >( this AstNode node, params NodeExpectation[] childExpectations ) where TExpectedFunction : PostfixMathCommand
 		{
 			node.ShouldBe< AstFunctionNode >();
 			node.As< AstFunctionNode >().Pfmc.ShouldBe< TExpectedFunction >();
 
-			AstNode child = node.GetChild( 0 );
-			NodeExpectation expectation = expectationLambda( new NodeExpectationFactory() );
-			expectation.AssertIsSatisfiedBy( child );
+			for ( int i = 0; i < node.NumChildren; i++ )
+				childExpectations[i].AssertIsSatisfiedBy( node.GetChild( i ) );
+		}
+
+		public static void ShouldBe( this AstNode node,  object expectation )
+		{
+			var nodeExpectation = NodeExpectationFactory.BuildExpectation( expectation );
+			nodeExpectation.AssertIsSatisfiedBy( node );
 		}
 
 
@@ -58,24 +61,6 @@ namespace CalcEngine.Tests.Assertions
 
 			AstNode rightNode = node.GetChild( 1 );
 			rightNode.ShouldBe_LiteralValue( expectedRightValue );
-		}
-
-
-		public static void ShouldBe_BinaryFunction< TExpectedFunction >( this AstNode node,
-		                                                                 Func< NodeExpectationFactory, NodeExpectation > leftExpectationLambda,
-		                                                                 Func< NodeExpectationFactory, NodeExpectation > rightExpectationLambda )
-				where TExpectedFunction : PostfixMathCommand
-		{
-			node.ShouldBe_Function< TExpectedFunction >();
-			Assert.That( node.NumChildren, Is.EqualTo( 2 ) );
-
-			AstNode leftNode = node.GetChild( 0 );
-			NodeExpectation leftExpectation = leftExpectationLambda( new NodeExpectationFactory() );
-			leftExpectation.AssertIsSatisfiedBy( leftNode );
-
-			AstNode rightNode = node.GetChild( 1 );
-			NodeExpectation rightExpectation = rightExpectationLambda( new NodeExpectationFactory() );
-			rightExpectation.AssertIsSatisfiedBy( rightNode );
 		}
 	}
 }

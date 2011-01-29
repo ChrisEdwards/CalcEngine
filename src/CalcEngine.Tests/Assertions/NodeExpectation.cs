@@ -6,6 +6,7 @@ namespace CalcEngine.Tests.Assertions
 {
 	public class NodeExpectation
 	{
+
 		private readonly Action< AstNode > _assertionMethod;
 
 

@@ -12,8 +12,7 @@ namespace CalcEngine.Tests.Parsers
 	[ TestFixture ]
 	public class ParsingExpressionTests
 	{
-		private CalcEngineParser _parser;
-
+		#region Setup/Teardown
 
 		[ SetUp ]
 		public void SetUp()
@@ -21,13 +20,17 @@ namespace CalcEngine.Tests.Parsers
 			_parser = new CalcEngineParser();
 		}
 
+		#endregion
+
+
+		private CalcEngineParser _parser;
+
 
 		[ Test ]
-		public void parsing_an_integer()
+		public void parenthesis_should_promote_order_of_precedence()
 		{
-			AstNode node = _parser.ParseExpression( "1" );
-
-			node.ShouldBe_LiteralValue( 1 );
+			AstNode node = _parser.ParseExpression( "1 * ( 2 + 3 )" );
+			node.ShouldBe( Node.Function< Multiply >( 1, Node.Function< Add >( 2, 3 ) ) );
 		}
 
 
@@ -36,7 +39,7 @@ namespace CalcEngine.Tests.Parsers
 		{
 			AstNode node = _parser.ParseExpression( "1.323" );
 
-			node.ShouldBe_LiteralValue( 1.323 );
+			node.ShouldBe( 1.323 );
 		}
 
 
@@ -44,26 +47,7 @@ namespace CalcEngine.Tests.Parsers
 		public void parsing_a_simple_addition()
 		{
 			AstNode node = _parser.ParseExpression( "1 + 2" );
-
-			node.ShouldBe_BinaryFunction< Add >( 1.0, 2.0 );
-		}
-
-
-		[ Test ]
-		public void parsing_a_simple_subtraction()
-		{
-			AstNode node = _parser.ParseExpression( "1 - 2" );
-
-			node.ShouldBe_BinaryFunction< Subtract >( 1.0, 2.0 );
-		}
-
-
-		[ Test ]
-		public void parsing_a_simple_multiplication()
-		{
-			AstNode node = _parser.ParseExpression( "1 * 2" );
-
-			node.ShouldBe_BinaryFunction< Multiply >( 1.0, 2.0 );
+			node.ShouldBe( Node.Function< Add >( 1, 2 ) );
 		}
 
 
@@ -71,20 +55,31 @@ namespace CalcEngine.Tests.Parsers
 		public void parsing_a_simple_division()
 		{
 			AstNode node = _parser.ParseExpression( "1 / 2" );
-
-			node.ShouldBe_BinaryFunction< Divide >( 1.0, 2.0 );
+			node.ShouldBe( Node.Function< Divide >( 1, 2 ) );
 		}
 
 
 		[ Test ]
-		public void parenthesis_should_promote_order_of_precedence()
+		public void parsing_a_simple_multiplication()
 		{
-			AstNode node = _parser.ParseExpression( "1 * ( 2 + 3 )" );
+			AstNode node = _parser.ParseExpression( "1 * 2" );
+			node.ShouldBe( Node.Function< Multiply >( 1, 2 ) );
+		}
 
-			node.ShouldBe_BinaryFunction< Multiply >(
-					x => x.ShouldBe_LiteralValue( 1.0 ),
-					x => x.ShouldBe_BinaryFunction< Add >( 2.0, 3.0 )
-					);
+
+		[ Test ]
+		public void parsing_a_simple_subtraction()
+		{
+			AstNode node = _parser.ParseExpression( "1 - 2" );
+			node.ShouldBe( Node.Function< Subtract >( 1, 2 ) );
+		}
+
+
+		[ Test ]
+		public void parsing_an_integer()
+		{
+			AstNode node = _parser.ParseExpression( "1" );
+			node.ShouldBe( 1 );
 		}
 
 
@@ -92,9 +87,7 @@ namespace CalcEngine.Tests.Parsers
 		public void parsing_round_function()
 		{
 			AstNode node = _parser.ParseExpression( "Round( 2.1 )" );
-			node.ShouldBe_Function< Round >(
-					x => x.ShouldBe_LiteralValue( 2.1 )
-					);
+			node.ShouldBe( Node.Function< Round >( 2.1 ) );
 		}
 	}
 }
